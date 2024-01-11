@@ -3,6 +3,9 @@ package com.dev.firstsnow.service;
 import com.dev.firstsnow.domain.User;
 import com.dev.firstsnow.dto.request.UserRequestDto;
 import com.dev.firstsnow.dto.response.CreateUserDto;
+import com.dev.firstsnow.dto.response.IsDuplicateDto;
+import com.dev.firstsnow.exception.CommonException;
+import com.dev.firstsnow.exception.ErrorCode;
 import com.dev.firstsnow.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,5 +26,13 @@ public class UserService {
         userRepository.save(user);
 
         return CreateUserDto.fromEntity(user);
+    }
+
+    public IsDuplicateDto isDuplicate(String nickname){
+        boolean isDuplicate = userRepository.findByNickname(nickname).isPresent();
+        if (isDuplicate) {
+            throw new CommonException(ErrorCode.DUPLICATED_SERIAL_ID);
+        }
+        return new IsDuplicateDto(isDuplicate);
     }
 }

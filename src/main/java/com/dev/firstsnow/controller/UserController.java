@@ -10,21 +10,17 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @Slf4j
 @RestController
 @RequestMapping("/api/v1/user")
 public class UserController {
-    UserService userService;
-    JwtUtil jwtUtil;
-    CookieUtil cookieUtil;
+    private final UserService userService;
+    private final JwtUtil jwtUtil;
 
-    @PostMapping("/sign-in")
+    @PostMapping("/sign-in") // 회원가입
     public ResponseDto<?> createUser(@RequestBody UserRequestDto userRequestDto, HttpServletResponse response){
         // 사용자 생성 및 사용자 ID 가져오기
         CreateUserDto createUserDto = userService.createUser(userRequestDto);
@@ -40,5 +36,10 @@ public class UserController {
         response.addCookie(cookie);
 
         return ResponseDto.ok(userService.createUser(userRequestDto));
+    }
+
+    @GetMapping("/duplicate") // 닉네임 중복체크
+    public ResponseDto<?> isDuplicateUser(@PathVariable String nickname){
+        return ResponseDto.ok(userService.isDuplicate(nickname));
     }
 }
