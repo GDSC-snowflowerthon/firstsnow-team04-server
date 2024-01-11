@@ -14,9 +14,9 @@
 -   chore : 빌드 업무 수정, 패키지 매니저 수정
 
 ## Enginnering Stack
-JDK : 17
-Spring : 3.2.0
-MySQL : 8.0.25
-Google Cloud Platform
-Docker
-Nginx
+- JDK : 17
+- Spring : 3.2.0
+- MySQL : 8.0.25
+- Google Cloud Platform
+- Docker
+- Nginx
