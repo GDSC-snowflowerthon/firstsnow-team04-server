@@ -21,8 +21,8 @@ public class User {
     @Column(name = "nickname")
     private String nickname;
 
-    @Column(name = "email")
-    private String email;
+    @Column(name = "location")
+    private String location;
 
     @Column(name = "phone")
     private String phone;
@@ -31,10 +31,10 @@ public class User {
     private String snowman;
 
     @Builder
-    public User(String nickname, String email, String phone, String snowman) {
+    public User(String nickname, String phone, String snowman, String location) {
         this.nickname = nickname;
-        this.email = email;
         this.phone = phone;
         this.snowman = snowman;
+        this.location = location;
     }
 }

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @Slf4j
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/letter")
 public class LetterController {
     private final LetterService letterService;
     private final TokenExtractor tokenExtractor;

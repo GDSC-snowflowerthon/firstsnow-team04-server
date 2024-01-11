@@ -3,12 +3,14 @@ package com.dev.firstsnow.util;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.stereotype.Component;
 import org.springframework.util.SerializationUtils;
 
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.Optional;
 
+@Component
 public class CookieUtil {
     public static Optional<Cookie> getCookie(HttpServletRequest request, String name) {
         Cookie[] cookies = request.getCookies();
