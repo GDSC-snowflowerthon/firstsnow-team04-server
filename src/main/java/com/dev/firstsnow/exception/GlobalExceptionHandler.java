@@ -1,7 +1,7 @@
 package com.dev.firstsnow.exception;
 
+import com.dev.firstsnow.dto.common.ResponseDto;
 import lombok.extern.slf4j.Slf4j;
-import org.dongguk.Project_1.dto.ResponseDto;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.HandlerMethodValidationException;
