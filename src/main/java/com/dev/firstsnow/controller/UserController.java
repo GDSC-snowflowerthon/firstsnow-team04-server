@@ -1,4 +1,4 @@
 package com.dev.firstsnow.controller;
 
-public class TestController {
+public class UserController {
 }
