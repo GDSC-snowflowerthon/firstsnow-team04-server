@@ -4,6 +4,8 @@ import com.dev.firstsnow.dto.common.ResponseDto;
 import com.dev.firstsnow.dto.request.LetterRequestDto;
 import com.dev.firstsnow.dto.response.ReadLetterDto;
 import com.dev.firstsnow.service.LetterService;
+import com.dev.firstsnow.util.TokenExtractor;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -14,10 +16,13 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1")
 public class LetterController {
     private final LetterService letterService;
+    private final TokenExtractor tokenExtractor;
 
     @PostMapping("/send-letter") // 편지 작성
-    public ResponseDto<?> createLetter(@RequestBody LetterRequestDto l){
-        return ResponseDto.ok(letterService.readLetter(letterId));
+    public ResponseDto<?> createLetter(@RequestBody LetterRequestDto letterRequestDto, HttpServletRequest request){
+        Long userId = tokenExtractor.getId(request);
+
+        return ResponseDto.ok(letterService.createLetter(letterRequestDto, userId));
     }
 
     @GetMapping("/read-letter") // 편지 조회
