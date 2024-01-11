@@ -34,7 +34,10 @@ public class UserController {
         String token = jwtUtil.generateToken(userId, 9999999);
 
         // 쿠키에 JWT 토큰 저장
-
+        Cookie cookie = new Cookie("JWT_TOKEN", token);
+        cookie.setHttpOnly(true);
+        cookie.setPath("/"); // 쿠키가 전송되는 경로 설정
+        response.addCookie(cookie);
 
         return ResponseDto.ok(userService.createUser(userRequestDto));
     }
