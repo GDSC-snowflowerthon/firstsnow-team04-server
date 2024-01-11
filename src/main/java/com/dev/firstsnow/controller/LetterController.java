@@ -16,7 +16,7 @@ public class LetterController {
     private final LetterService letterService;
 
     @PostMapping("/send-letter") // 편지 작성
-    public ResponseDto<?> createLetter(@RequestBody LetterRequestDto letterRequestDto){
+    public ResponseDto<?> createLetter(@RequestBody LetterRequestDto l){
         return ResponseDto.ok(letterService.readLetter(letterId));
     }
 

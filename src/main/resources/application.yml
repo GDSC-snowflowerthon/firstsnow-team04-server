@@ -40,6 +40,3 @@ jwt:
   secret-key: "secretsecretsecretsecretsecretsecretsecretsecretsecretsecretsecretsecretsecretsecretsecretsecretsecretsecretsecret"
   access-token-expire-period: 999999999
   refresh-token-expire-period: 999999999
-
-server:
-  http-address: "http://localhost:8080"
