@@ -3,6 +3,7 @@ package com.dev.firstsnow.service;
 import com.dev.firstsnow.domain.Letter;
 import com.dev.firstsnow.domain.User;
 import com.dev.firstsnow.dto.request.LetterRequestDto;
+import com.dev.firstsnow.dto.response.CreateLetterDto;
 import com.dev.firstsnow.dto.response.ReadLetterDto;
 import com.dev.firstsnow.exception.CommonException;
 import com.dev.firstsnow.exception.ErrorCode;
@@ -20,7 +21,7 @@ public class LetterService {
     private final UserRepository userRepository;
 
     // 편지 작성
-    public ReadLetterDto createLetter(LetterRequestDto letterRequestDto, Long senderId) {
+    public CreateLetterDto createLetter(LetterRequestDto letterRequestDto, Long senderId) {
         User sender = userRepository.findById(senderId)
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_USER));
         User recipient = userRepository.findById(letterRequestDto.recipient_id())
@@ -38,7 +39,7 @@ public class LetterService {
         letterRepository.save(letter);
 
         // 편지 내용 전송
-        return ReadLetterDto.fromEntity(letter);
+        return CreateLetterDto.fromEntity(letter);
     }
 
     // 편지 조회
