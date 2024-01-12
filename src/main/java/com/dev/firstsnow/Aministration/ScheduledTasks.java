@@ -1,5 +1,6 @@
 package com.dev.firstsnow.Aministration;
 
+import com.dev.firstsnow.service.LetterService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;
@@ -24,13 +25,18 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Slf4j
 public class ScheduledTasks {
-    private final RestTemplate restTemplate;
-    private final LocationMap locationMap;
+    private final LetterService letterService;
+    LocationMap locationMap;
 
     // 정각마다 실행되는 메서드
     @Scheduled(cron = "0 0 * * * ?")
-    public void doSomething() {
+    public void doSomething() throws IOException, JSONException {
+        for (String location : locationMap.map.keySet()) {
+            PointXY pointXY = locationMap.map.get(location);
+            Boolean isSnow = lookUpWeather(pointXY.getX(), pointXY.getY());
 
+            if(isSnow) letterService.updateLettersSentStatusForLocation(location);
+        }
     }
 
     public Boolean lookUpWeather(int nx, int ny) throws IOException, JSONException {

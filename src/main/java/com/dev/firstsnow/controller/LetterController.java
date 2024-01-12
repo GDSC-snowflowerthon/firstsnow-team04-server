@@ -37,4 +37,10 @@ public class LetterController {
         Long userId = tokenExtractor.getId(request);
         return ResponseDto.ok(letterService.readPost(userId));
     }
+
+    @GetMapping("/update-letter") // 편지들 업데이트
+    public ResponseDto<?> updateLetter(@RequestParam("location") String location){
+        letterService.updateLettersSentStatusForLocation(location);
+        return ResponseDto.ok("success");
+    }
 }
