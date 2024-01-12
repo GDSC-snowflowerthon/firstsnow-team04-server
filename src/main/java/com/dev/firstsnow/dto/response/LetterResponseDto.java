@@ -3,6 +3,9 @@ package com.dev.firstsnow.dto.response;
 import com.dev.firstsnow.domain.Letter;
 import lombok.Builder;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Builder
 public record LetterResponseDto(
     Long letter_id,
@@ -23,5 +26,25 @@ public record LetterResponseDto(
                         .letter_id(letter.getId())
                         .build();
         return letterResponseDto;
+    }
+
+    public static List<LetterResponseDto> fromEntityList(List<Letter> letters){
+        List<LetterResponseDto> dtoList = new ArrayList<>();
+
+        for(Letter letter : letters){
+            LetterResponseDto letterResponseDto =
+                    LetterResponseDto.builder()
+                            .title(letter.getTitle())
+                            .content(letter.getContent())
+                            .created_date(letter.getCreatedDate().toString())
+                            .sender_id(letter.getSender().getId())
+                            .recipient_id(letter.getRecipient().getId())
+                            .letter_id(letter.getId())
+                            .build();
+
+            dtoList.add(letterResponseDto);
+        }
+
+        return dtoList;
     }
 }
