@@ -4,6 +4,7 @@ import com.dev.firstsnow.domain.Letter;
 import com.dev.firstsnow.domain.User;
 import com.dev.firstsnow.dto.request.LetterRequestDto;
 import com.dev.firstsnow.dto.response.LetterResponseDto;
+import com.dev.firstsnow.dto.response.PostboxReponseDto;
 import com.dev.firstsnow.dto.response.ReadLetterDto;
 import com.dev.firstsnow.exception.CommonException;
 import com.dev.firstsnow.exception.ErrorCode;
@@ -60,7 +61,7 @@ public class LetterService {
 
     // 우편함 조회
     @Transactional
-    public List<LetterResponseDto> readPost(Long userId) {
+    public List<PostboxReponseDto> readPost(Long userId) {
         // 해당 사용사가 받는이로 되어있고, isSent가 true 되어있는 편지들의 리스트를 전달
 
         // 유저가 없으면 에러 터트리기
@@ -70,6 +71,6 @@ public class LetterService {
 
         List<Letter> letters = letterRepository.findByRecipientIdAndIsSentTrue(userId);
 
-        return LetterResponseDto.fromEntityList(letters);
+        return PostboxReponseDto.fromEntityList(letters);
     }
 }
