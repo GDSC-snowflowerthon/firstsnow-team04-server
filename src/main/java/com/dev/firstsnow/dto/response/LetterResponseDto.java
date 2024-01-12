@@ -4,7 +4,7 @@ import com.dev.firstsnow.domain.Letter;
 import lombok.Builder;
 
 @Builder
-public record CreateLetterDto(
+public record LetterResponseDto(
     Long letter_id,
     String title,
     String content,
@@ -12,9 +12,9 @@ public record CreateLetterDto(
     Long recipient_id,
     String created_date
 ) {
-    public static CreateLetterDto fromEntity(Letter letter){
-        CreateLetterDto createLetterDto =
-                CreateLetterDto.builder()
+    public static LetterResponseDto fromEntity(Letter letter){
+        LetterResponseDto letterResponseDto =
+                LetterResponseDto.builder()
                         .title(letter.getTitle())
                         .content(letter.getContent())
                         .created_date(letter.getCreatedDate().toString())
@@ -22,6 +22,6 @@ public record CreateLetterDto(
                         .recipient_id(letter.getRecipient().getId())
                         .letter_id(letter.getId())
                         .build();
-        return createLetterDto;
+        return letterResponseDto;
     }
 }

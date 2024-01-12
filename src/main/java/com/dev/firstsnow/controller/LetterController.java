@@ -31,4 +31,10 @@ public class LetterController {
 
         return ResponseDto.ok(letterService.readLetter(letterId));
     }
+
+//    @GetMapping("/read-post") // 우편함 조회
+//    public ResponseDto<?> readPost(HttpServletRequest request){
+//        Long userId = tokenExtractor.getId(request);
+//
+//    }
 }
