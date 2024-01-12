@@ -34,7 +34,6 @@ public class UserController {
 
     @PostMapping("/login") // 로그인
     public ResponseDto<?> login(@RequestBody UserRequestDto userRequestDto, HttpServletResponse response){
-
         // 사용자 생성 및 사용자 ID 가져오기
         UserResponseDto userResponseDto = userService.login(userRequestDto);
         Long userId = userResponseDto.user_id();
@@ -83,5 +82,10 @@ public class UserController {
         Long userId = tokenExtractor.getId(request);
 
         return ResponseDto.ok(userService.changeSnowman(userId, userRequestDto.snowman_num()));
+    }
+
+    @GetMapping("/duplicate") // 닉네임 중복체크
+    public ResponseDto<?> isDuplicateUser(@PathVariable String nickname){
+        return ResponseDto.ok(userService.isDuplicate(nickname));
     }
 }
