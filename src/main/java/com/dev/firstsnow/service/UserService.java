@@ -55,4 +55,28 @@ public class UserService {
 
         return UserResponseDto.fromEntity(user);
     }
+
+    //닉네임 변경
+    public UserResponseDto changeNickname(String nickname) {
+        User user = userRepository.findByNickname(nickname)
+                .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_USER));
+
+        user.updateNickname(nickname);
+
+        userRepository.save(user);
+
+        return UserResponseDto.fromEntity(user);
+    }
+
+    //위치 변경
+    public UserResponseDto changeNickname(String location) {
+        User user = userRepository.findByNickname(location)
+                .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_USER));
+
+        user.updateNickname(location);
+
+        userRepository.save(user);
+
+        return UserResponseDto.fromEntity(user);
+    }
 }

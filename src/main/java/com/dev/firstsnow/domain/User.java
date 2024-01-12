@@ -37,4 +37,15 @@ public class User {
         this.snowman = snowman;
         this.location = location;
     }
+
+    public void updateNickname(String nickname){
+        this.nickname = nickname;
+    }
+
+    public void updateLocation(String location){ this.location = location; }
+
+    public void updateSnowman(String snowman){
+        this.snowman = snowman;
+    }
+
 }

@@ -5,6 +5,7 @@ import com.dev.firstsnow.dto.request.UserRequestDto;
 import com.dev.firstsnow.dto.response.UserResponseDto;
 import com.dev.firstsnow.service.UserService;
 import com.dev.firstsnow.util.JwtUtil;
+import com.dev.firstsnow.util.TokenExtractor;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/user")
 public class UserController {
     private final UserService userService;
+    private final TokenExtractor tokenExtractor;
     private final JwtUtil jwtUtil;
 
     @PostMapping("/sign-in")
@@ -61,4 +63,8 @@ public class UserController {
         return ResponseDto.ok("Logged out successfully");
     }
 
+    @PatchMapping("/change-nickname")
+    public ResponseDto<?> changeNickname(@RequestBody UserRequestDto userRequestDto){
+        Long userId = tokenExtractor.getId(request);
+    }
 }
