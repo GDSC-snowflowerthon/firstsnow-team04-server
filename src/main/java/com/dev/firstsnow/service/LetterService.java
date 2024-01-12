@@ -4,6 +4,7 @@ import com.dev.firstsnow.domain.Letter;
 import com.dev.firstsnow.domain.User;
 import com.dev.firstsnow.dto.request.LetterRequestDto;
 import com.dev.firstsnow.dto.response.LetterResponseDto;
+import com.dev.firstsnow.dto.response.PostboxReponseDto;
 import com.dev.firstsnow.dto.response.ReadLetterDto;
 import com.dev.firstsnow.exception.CommonException;
 import com.dev.firstsnow.exception.ErrorCode;
@@ -12,6 +13,8 @@ import com.dev.firstsnow.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -56,9 +59,18 @@ public class LetterService {
         return ReadLetterDto.fromEntity(letter);
     }
 
-//    // 우편함 조회
-//    @Transactional
-//    public LetterResponseDto readPost(Long userId) {
-//
-//    }
+    // 우편함 조회
+    @Transactional
+    public List<PostboxReponseDto> readPost(Long userId) {
+        // 해당 사용사가 받는이로 되어있고, isSent가 true 되어있는 편지들의 리스트를 전달
+
+        // 유저가 없으면 에러 터트리기
+        if(!userRepository.existsById(userId)){
+            throw new CommonException(ErrorCode.NOT_FOUND_USER);
+        }
+
+        List<Letter> letters = letterRepository.findByRecipientIdAndIsSentTrue(userId);
+
+        return PostboxReponseDto.fromEntityList(letters);
+    }
 }

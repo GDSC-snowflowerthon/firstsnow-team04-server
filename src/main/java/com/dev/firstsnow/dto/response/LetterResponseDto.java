@@ -3,6 +3,9 @@ package com.dev.firstsnow.dto.response;
 import com.dev.firstsnow.domain.Letter;
 import lombok.Builder;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Builder
 public record LetterResponseDto(
     Long letter_id,
@@ -24,4 +27,6 @@ public record LetterResponseDto(
                         .build();
         return letterResponseDto;
     }
+
+
 }

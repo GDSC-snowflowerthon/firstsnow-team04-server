@@ -9,8 +9,11 @@ import com.dev.firstsnow.util.TokenExtractor;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.antlr.v4.runtime.misc.NotNull;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
@@ -85,7 +88,14 @@ public class UserController {
     }
 
     @GetMapping("/duplicate") // 닉네임 중복체크
-    public ResponseDto<?> isDuplicateUser(@PathVariable String nickname){
+    public ResponseDto<?> isDuplicateUser(@RequestParam("nickname") String nickname){
         return ResponseDto.ok(userService.isDuplicate(nickname));
+    }
+
+    @GetMapping("/search-users") // 닉네임 검색
+    public ResponseDto<?> searchUsers(@RequestParam String keyword){
+        Integer pageIndex = 0;
+        Integer pageSize = 100;
+        return ResponseDto.ok(userService.searchUsers(keyword, pageIndex, pageSize));
     }
 }
