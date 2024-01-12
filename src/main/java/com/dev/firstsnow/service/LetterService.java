@@ -9,6 +9,7 @@ import com.dev.firstsnow.exception.CommonException;
 import com.dev.firstsnow.exception.ErrorCode;
 import com.dev.firstsnow.repository.LetterRepository;
 import com.dev.firstsnow.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -43,6 +44,7 @@ public class LetterService {
     }
 
     // 편지 조회
+    @Transactional
     public ReadLetterDto readLetter(Long letterId) {
         // 편지 불러와서 읽음으로 처리하고
         Letter letter = letterRepository.findById(letterId)
