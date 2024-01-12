@@ -48,4 +48,17 @@ public class UserController {
         return ResponseDto.ok(userService.login(userRequestDto));
     }
 
+    @GetMapping("/logout") //로그아웃
+    public ResponseDto<?> logout(HttpServletResponse response) {
+        // 쿠키 삭제를 위해 만료 시간을 과거로 설정
+        Cookie cookie = new Cookie("JWT_TOKEN", null);
+        cookie.setHttpOnly(true);
+        cookie.setPath("/");
+        cookie.setMaxAge(0); // 쿠키 만료 시간을 0으로 설정
+
+        response.addCookie(cookie); // 변경된 쿠키를 응답에 추가
+
+        return ResponseDto.ok("Logged out successfully");
+    }
+
 }

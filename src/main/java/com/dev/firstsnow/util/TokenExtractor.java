@@ -1,5 +1,7 @@
 package com.dev.firstsnow.util;
 
+import com.dev.firstsnow.exception.CommonException;
+import com.dev.firstsnow.exception.ErrorCode;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -19,10 +21,15 @@ public class TokenExtractor {
     }
 
     public Long getId(HttpServletRequest request){
-        String token = TokenExtractor.extractToken(request);
-        Claims claims = jwtUtil.validateToken(token);
-        Long userId = Long.parseLong(claims.get("id").toString());
+        try{
+            String token = TokenExtractor.extractToken(request);
+            Claims claims = jwtUtil.validateToken(token);
+            Long userId = Long.parseLong(claims.get("id").toString());
 
-        return userId;
+            return userId;
+        }
+        catch (Exception e){
+            throw new CommonException(ErrorCode.FAILURE_LOGIN);
+        }
     }
 }

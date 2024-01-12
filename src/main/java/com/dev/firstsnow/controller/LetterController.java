@@ -26,7 +26,9 @@ public class LetterController {
     }
 
     @GetMapping("/read-letter") // 편지 조회
-    public ResponseDto<?> readLetter(@PathVariable Long letterId){
+    public ResponseDto<?> readLetter(@PathVariable Long letterId, HttpServletRequest request){
+        Long userId = tokenExtractor.getId(request);
+
         return ResponseDto.ok(letterService.readLetter(letterId));
     }
 }
