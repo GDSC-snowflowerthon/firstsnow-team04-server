@@ -14,7 +14,7 @@ public enum ErrorCode {
     INVALID_HEADER("4004", HttpStatus.NOT_FOUND, "유효하지 않은 헤더값입니다."),
     DUPLICATED_SERIAL_ID("4005", HttpStatus.NOT_FOUND, "중복된 아이디입니다."),
 
-    FAILURE_LOGIN("4010", HttpStatus.UNAUTHORIZED, "로그인에 실패했습니다"),
+    FAILURE_LOGIN("4010", HttpStatus.UNAUTHORIZED, "인증에 실패했습니다"),
 
     // Not Found Error
     NOT_FOUND_USER("4040", HttpStatus.NOT_FOUND, "해당 사용자가 존재하지 않습니다."),
