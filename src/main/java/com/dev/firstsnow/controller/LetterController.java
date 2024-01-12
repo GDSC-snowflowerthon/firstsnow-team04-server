@@ -43,4 +43,10 @@ public class LetterController {
         letterService.updateLettersSentStatusForLocation(location);
         return ResponseDto.ok("success");
     }
+
+//    @GetMapping("/send-message") // 편지들 업데이트
+//    public ResponseDto<?> updateLetter(){
+//        letterService.testSend();
+//        return ResponseDto.ok("success");
+//    }
 }
