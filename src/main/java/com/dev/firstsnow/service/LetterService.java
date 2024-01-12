@@ -56,6 +56,9 @@ public class LetterService {
         return ReadLetterDto.fromEntity(letter);
     }
 
-    // 우편함 조회
-
+//    // 우편함 조회
+//    @Transactional
+//    public LetterResponseDto readPost(Long userId) {
+//
+//    }
 }
