@@ -39,7 +39,7 @@ public class UserController {
         return ResponseDto.ok(userService.createUser(userRequestDto));
     }
 
-    @GetMapping("/is-duplicate")
+    @GetMapping("/is-duplicate") // 닉네임 중복검사
     public ResponseDto<?> isDuplicate(@RequestParam("nickname") String nickname) {
         return ResponseDto.ok(userService.isDuplicate(nickname));
     }
