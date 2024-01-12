@@ -7,6 +7,7 @@ import com.dev.firstsnow.service.UserService;
 import com.dev.firstsnow.util.JwtUtil;
 import com.dev.firstsnow.util.TokenExtractor;
 import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -64,7 +65,7 @@ public class UserController {
     }
 
     @PatchMapping("/change-nickname")
-    public ResponseDto<?> changeNickname(@RequestBody UserRequestDto userRequestDto){
+    public ResponseDto<?> changeNickname(@RequestBody UserRequestDto userRequestDto, HttpServletRequest request){
         Long userId = tokenExtractor.getId(request);
     }
 }

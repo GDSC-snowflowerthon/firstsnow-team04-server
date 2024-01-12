@@ -57,8 +57,8 @@ public class UserService {
     }
 
     //닉네임 변경
-    public UserResponseDto changeNickname(String nickname) {
-        User user = userRepository.findByNickname(nickname)
+    public UserResponseDto changeNickname(Long userId, String nickname) {
+        User user = userRepository.findById(userId)
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_USER));
 
         user.updateNickname(nickname);
@@ -69,11 +69,23 @@ public class UserService {
     }
 
     //위치 변경
-    public UserResponseDto changeNickname(String location) {
-        User user = userRepository.findByNickname(location)
+    public UserResponseDto changeLocation(Long userId, String location) {
+        User user = userRepository.findById(userId)
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_USER));
 
-        user.updateNickname(location);
+        user.updateLocation(location);
+
+        userRepository.save(user);
+
+        return UserResponseDto.fromEntity(user);
+    }
+
+    //눈사람 변경
+    public UserResponseDto changeSnowman(Long userId, String snowman) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_USER));
+
+        user.updateSnowman(snowman);
 
         userRepository.save(user);
 
