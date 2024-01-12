@@ -8,7 +8,14 @@ import com.dev.firstsnow.exception.CommonException;
 import com.dev.firstsnow.exception.ErrorCode;
 import com.dev.firstsnow.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -92,4 +99,26 @@ public class UserService {
         return UserResponseDto.fromEntity(user);
     }
 
+    //닉네임 검색
+    public List<UserResponseDto> searchUsers(String keyword,
+                                             Integer pageIndex, Integer pageSize){
+        // Pageable 객체를 생성하여 페이징 처리
+        Pageable pageable = PageRequest.of(pageIndex, pageSize);
+        Page<User> userPage;
+
+        //keyword가 null 혹은 공백인 경우
+        if (!StringUtils.hasText(keyword)) {
+            userPage = userRepository.findAll(pageable);
+        } else {
+            // DiaryRepository를 사용하여 title과 content를 기반으로 검색하고 페이징된 결과를 가져옴
+            userPage = userRepository.findByNicknameContaining(keyword, pageable);
+        }
+
+        // Page<Diary>에서 DiaryDetailDto 리스트로 변환
+        List<UserResponseDto> userResponseDtos = userPage.getContent().stream()
+                .map(UserResponseDto::fromEntity)
+                .collect(Collectors.toList());
+
+        return userResponseDtos;
+    }
 }
