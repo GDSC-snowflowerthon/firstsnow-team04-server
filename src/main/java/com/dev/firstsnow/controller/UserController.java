@@ -39,18 +39,16 @@ public class UserController {
     public ResponseDto<?> login(@RequestBody UserRequestDto userRequestDto, HttpServletResponse response){
         // 사용자 생성 및 사용자 ID 가져오기
         UserResponseDto userResponseDto = userService.login(userRequestDto);
-        Long userId = userResponseDto.user_id();
+        Long userId = userResponseDto.getUser_id();
 
         // JWT 토큰 생성
         String token = jwtUtil.generateToken(userId, 9999999);
 
-        // 쿠키에 JWT 토큰 저장
-        Cookie cookie = new Cookie("JWT_TOKEN", token);
-        cookie.setHttpOnly(true);
-        cookie.setPath("/"); // 쿠키가 전송되는 경로 설정
-        response.addCookie(cookie);
+        UserResponseDto login = userService.login(userRequestDto);
 
-        return ResponseDto.ok(userService.login(userRequestDto));
+        login.setToken(token);
+
+        return ResponseDto.ok(login);
     }
 
     @GetMapping("/logout") //로그아웃
