@@ -89,7 +89,7 @@ public class LetterService {
             List<Letter> letters = letterRepository.findByRecipient(user);
             for (Letter letter : letters) {
                 if (!letter.getIsSent()) {
-                    String phone = letter.getRecipient().getPhone().replace("-", "");
+                    String phone = user.getPhone().replace("-", "");
                     testSend(phone);
                     log.info(phone);
                     letter.updateIsSent(true);
