@@ -2,7 +2,7 @@ package com.dev.firstsnow.service;
 
 import com.dev.firstsnow.domain.User;
 import com.dev.firstsnow.dto.request.UserRequestDto;
-import com.dev.firstsnow.dto.response.CreateUserDto;
+import com.dev.firstsnow.dto.response.UserResponseDto;
 import com.dev.firstsnow.dto.response.IsDuplicateDto;
 import com.dev.firstsnow.exception.CommonException;
 import com.dev.firstsnow.exception.ErrorCode;
@@ -15,7 +15,14 @@ import org.springframework.stereotype.Service;
 public class UserService {
     private final UserRepository userRepository;
 
-    public CreateUserDto createUser(UserRequestDto userRequestDto){
+    //회원가입
+    public UserResponseDto createUser(UserRequestDto userRequestDto){
+
+        boolean isDuplicate = userRepository.existsByNickname(userRequestDto.nickname());
+        if (isDuplicate) {
+            throw new CommonException(ErrorCode.DUPLICATED_SERIAL_ID);
+        }
+
         User user = User.builder()
                 .nickname(userRequestDto.nickname())
                 .location(userRequestDto.location())
@@ -25,9 +32,10 @@ public class UserService {
 
         userRepository.save(user);
 
-        return CreateUserDto.fromEntity(user);
+        return UserResponseDto.fromEntity(user);
     }
 
+    //닉네임 중복검사
     public IsDuplicateDto isDuplicate(String nickname) {
         boolean isDuplicate = userRepository.existsByNickname(nickname);
 
@@ -36,5 +44,15 @@ public class UserService {
         }
 
         return new IsDuplicateDto(false);
+    }
+
+    //로그인
+    public UserResponseDto login(UserRequestDto userRequestDto) {
+        String nickname = userRequestDto.nickname();
+
+        User user = userRepository.findByNickname(nickname)
+                .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_USER));
+
+        return UserResponseDto.fromEntity(user);
     }
 }
