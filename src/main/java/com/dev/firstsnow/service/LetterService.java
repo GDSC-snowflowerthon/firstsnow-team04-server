@@ -90,7 +90,8 @@ public class LetterService {
             for (Letter letter : letters) {
                 if (!letter.getIsSent()) {
                     String phone = user.getPhone().replace("-", "");
-                    testSend(phone);
+                    String url = "http://50cms.store/mailboxpage/" + user.getId();
+                    testSend(phone, url);
                     log.info(phone);
                     letter.updateIsSent(true);
                     letterRepository.save(letter);
@@ -99,13 +100,13 @@ public class LetterService {
         }
     }
 
-    public void testSend(String phone) {
+    public void testSend(String phone, String url) {
         DefaultMessageService messageService =  NurigoApp.INSTANCE.initialize("NCSEZASHIWVTM9MN", "ULVR13M5QUJA995PAMUI0EYTEWP9MPYD", "https://api.coolsms.co.kr");
 // Message 패키지가 중복될 경우 net.nurigo.sdk.message.model.Message로 치환하여 주세요
         Message message = new Message();
         message.setFrom("01024331103");
         message.setTo(phone);
-        message.setText("따뜻한 마음이 담긴 편지 하나가 도착했어요!!!~~\n\n해커톤 기간동안 고생많으셨습니다");
+        message.setText("따뜻한 마음이 담긴 편지 하나가 도착했어요!!!~~\n\n해커톤 기간동안 고생많으셨습니다" + url);
 
         try {
             // send 메소드로 ArrayList<Message> 객체를 넣어도 동작합니다!
