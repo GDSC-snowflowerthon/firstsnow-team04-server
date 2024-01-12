@@ -78,5 +78,10 @@ public class UserController {
         return ResponseDto.ok(userService.changeLocation(userId, userRequestDto.location()));
     }
 
+    @PatchMapping("/change-snowman") //닉네임 변경
+    public ResponseDto<?> changeSnowman(@RequestBody UserRequestDto userRequestDto, HttpServletRequest request){
+        Long userId = tokenExtractor.getId(request);
 
+        return ResponseDto.ok(userService.changeSnowman(userId, userRequestDto.snowman_num()));
+    }
 }
