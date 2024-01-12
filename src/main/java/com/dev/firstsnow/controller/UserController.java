@@ -85,7 +85,12 @@ public class UserController {
     }
 
     @GetMapping("/duplicate") // 닉네임 중복체크
-    public ResponseDto<?> isDuplicateUser(@PathVariable String nickname){
+    public ResponseDto<?> isDuplicateUser(@RequestParam("nickname") String nickname){
         return ResponseDto.ok(userService.isDuplicate(nickname));
+    }
+
+    @GetMapping("/search-users") // 닉네임 검색
+    public ResponseDto<?> searchUsers(@RequestParam("keyword") String keyword){
+
     }
 }
