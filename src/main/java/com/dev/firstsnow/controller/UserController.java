@@ -64,8 +64,19 @@ public class UserController {
         return ResponseDto.ok("Logged out successfully");
     }
 
-    @PatchMapping("/change-nickname")
+    @PatchMapping("/change-nickname") //닉네임 변경
     public ResponseDto<?> changeNickname(@RequestBody UserRequestDto userRequestDto, HttpServletRequest request){
         Long userId = tokenExtractor.getId(request);
+
+        return ResponseDto.ok(userService.changeNickname(userId, userRequestDto.nickname()));
     }
+
+    @PatchMapping("/change-location") //닉네임 변경
+    public ResponseDto<?> changeLocation(@RequestBody UserRequestDto userRequestDto, HttpServletRequest request){
+        Long userId = tokenExtractor.getId(request);
+
+        return ResponseDto.ok(userService.changeLocation(userId, userRequestDto.location()));
+    }
+
+
 }
