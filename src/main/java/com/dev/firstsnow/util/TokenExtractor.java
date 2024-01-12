@@ -14,8 +14,7 @@ import org.springframework.util.StringUtils;
 public class TokenExtractor {
     private final JwtUtil jwtUtil;
     public static String extractToken(HttpServletRequest request) {
-        String token = request.getHeader("Author" +
-                "ization");
+        String token = request.getHeader("Authorization");
         if (StringUtils.hasText(token)) {
             return token;
         }
