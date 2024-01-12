@@ -51,7 +51,7 @@ public class ScheduledTasks {
         String baseTime = nowMinusTenMinutes.format(timeFormatter);
 
 //		참고문서에 있는 url주소
-        String apiUrl = "hhttp://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?ServiceKey=OYs%2FoOX5Znf7dF%2BiW%2FInedCkW%2FP0EdJ0wKF6vaqg%2BvyEsf6pmRwwgtwnCiI3Mkz2ky1UN%2FMN0zxjBO9eAsrHjQ%3D%3D&pageNo=1&numOfRows=1000&dataType=JSON";
+        String apiUrl = "http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?ServiceKey=OYs%2FoOX5Znf7dF%2BiW%2FInedCkW%2FP0EdJ0wKF6vaqg%2BvyEsf6pmRwwgtwnCiI3Mkz2ky1UN%2FMN0zxjBO9eAsrHjQ%3D%3D&pageNo=1&numOfRows=1000&dataType=JSON";
 
         StringBuilder urlBuilder = new StringBuilder(apiUrl);
         urlBuilder.append("&" + URLEncoder.encode("nx","UTF-8") + "=" + URLEncoder.encode(String.valueOf(nx), "UTF-8")); //경도
