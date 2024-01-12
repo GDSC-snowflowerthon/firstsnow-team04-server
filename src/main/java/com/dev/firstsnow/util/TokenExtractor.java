@@ -14,16 +14,14 @@ import org.springframework.util.StringUtils;
 public class TokenExtractor {
     private final JwtUtil jwtUtil;
     public static String extractToken(HttpServletRequest request) {
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if ("JWT_TOKEN".equals(cookie.getName())) {
-                    return cookie.getValue();
-                }
-            }
+        String token = request.getHeader("Author" +
+                "ization");
+        if (StringUtils.hasText(token)) {
+            return token;
         }
         return null;
     }
+
 
     public Long getId(HttpServletRequest request){
         try{
