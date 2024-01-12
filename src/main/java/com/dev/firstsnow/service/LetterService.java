@@ -73,4 +73,18 @@ public class LetterService {
 
         return PostboxReponseDto.fromEntityList(letters);
     }
+
+    @Transactional
+    public void updateLettersSentStatusForLocation(String location) {
+        List<User> users = userRepository.findByLocation(location);
+        for (User user : users) {
+            List<Letter> letters = letterRepository.findByRecipient(user);
+            for (Letter letter : letters) {
+                if (!letter.getIsSent()) {
+                    letter.updateIsSent(true);
+                    letterRepository.save(letter);
+                }
+            }
+        }
+    }
 }

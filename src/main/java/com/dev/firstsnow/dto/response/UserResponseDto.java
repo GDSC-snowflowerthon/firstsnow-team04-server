@@ -3,18 +3,25 @@ package com.dev.firstsnow.dto.response;
 import com.dev.firstsnow.domain.Letter;
 import com.dev.firstsnow.domain.User;
 import lombok.Builder;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Builder
-public record UserResponseDto(
-        Long user_id,
-        String nickname,
-        String phone,
-        String location,
-        String snowman_num
-) {
+@Getter
+public class UserResponseDto {
+    private Long user_id;
+    private String nickname;
+    private String phone;
+    private String location;
+    private String snowman_num;
+    private String token;
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
     public static UserResponseDto fromEntity(User user){
         UserResponseDto userResponseDto =
                 UserResponseDto.builder()
