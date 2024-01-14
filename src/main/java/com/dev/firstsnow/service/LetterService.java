@@ -17,6 +17,8 @@ import net.nurigo.sdk.NurigoApp;
 import net.nurigo.sdk.message.model.Message;
 import net.nurigo.sdk.message.service.DefaultMessageService;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -25,6 +27,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Slf4j
+@PropertySource("classpath:nurigo.properties")
 public class LetterService {
     private final LetterRepository letterRepository;
     private final UserRepository userRepository;
@@ -100,8 +103,14 @@ public class LetterService {
         }
     }
 
+    @Value("${nurigo.api}")
+    private String api;
+
+    @Value("${nurigo.secret}")
+    private final String secret;
+
     public void testSend(String phone, String url) {
-        DefaultMessageService messageService =  NurigoApp.INSTANCE.initialize("NCSEZASHIWVTM9MN", "ULVR13M5QUJA995PAMUI0EYTEWP9MPYD", "https://api.coolsms.co.kr");
+        DefaultMessageService messageService =  NurigoApp.INSTANCE.initialize(api,secret , "https://api.coolsms.co.kr");
 // Message 패키지가 중복될 경우 net.nurigo.sdk.message.model.Message로 치환하여 주세요
         Message message = new Message();
         message.setFrom("01024331103");
